@@ -19,15 +19,21 @@ class MessagesController < ApplicationController
   end
 
   def create
-    # 自分が投稿したメッセージなので「@message = Message.create!」ではなく「ログインしているユーザ:current_user」
+    # 自分が投稿したメッセージなので「@message = Message.create!」ではなく「ログインしているユーザ:currect_user」
     current_user.messages.create!(message_params)
     redirect_to root_path
   end
 
+  # def current_userで既にmessageがfindされているのでここは記入無しでOK
   def edit
   end
 
   def update
+    # @message:currect_userの@message
+    # message_params:↓のdef message_paramsのparams.require(:message).permit(:content)(contentを取ってくる)
+    @message.update!(message_params)
+    # updateが終わったらTOPページに戻る
+    redirect_to root_path
   end
 
   def destroy

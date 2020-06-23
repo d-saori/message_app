@@ -7,6 +7,8 @@
       <%# (message):どのメッセージを削除するかが必要になる。each文の|message|対応するメッセージ %>
       <%# method: :delete→message_pathだけだと伝わらないのでメソッドの指定 %>
       <%= link_to "削除", message_path(message), method: :delete, data: { confirm: "削除しますか？" } %>
+      <%# methodオプションではHTTPメソッドの種類を指定します。何も指定しなければGETになるのでここは省略 %>
+      <%= link_to "編集", edit_message_path(message) %>
     </p>
   </div>
   <hr>
