@@ -12,6 +12,10 @@ class MessagesController < ApplicationController
   def index
     # ***** (Message.allはよくない) *****
     @messages = Message.includes(:user)
+    # ユーザーが「いいね！」した全てのメッセージidの配列
+    # pluckメソッド:mapと同義。
+    # current_user.likes.pluck(:message_id)→自分がお気に入りしたメッセージのID(の配列)を取ってくる
+    @liked_message_ids = current_user.likes.pluck(:message_id)
   end
 
   def new

@@ -9,6 +9,14 @@
       <%= link_to "削除", message_path(message), method: :delete, data: { confirm: "削除しますか？" } %>
       <%# methodオプションではHTTPメソッドの種類を指定します。何も指定しなければGETになるのでここは省略 %>
       <%= link_to "編集", edit_message_path(message) %>
+      <%# @liked_message_ids:indexアクションの変数 %>
+      <% if @liked_message_ids.include?(message.id) %>
+        <!-- いいね!済み -->
+        ★
+      <% else %>
+        <!-- いいね!していない -->
+        ☆
+      <% end %>
     </p>
   </div>
   <hr>
