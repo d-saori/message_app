@@ -1,0 +1,5 @@
+<%= form_with model: @message, local: true do |form| %>
+  <%# required: true→空欄入力できない。フロント側にバリデーションが入る。サーバ側(モデル)でもバリデーションを入れていても、サーバに送信してからだと効率が悪いので、フロント側に簡単に入れらるバリデーションは入れておいた方が良い %>
+  <%= form.text_field :content, required: true %>
+  <%= form.submit "送信" %>
+<% end %>

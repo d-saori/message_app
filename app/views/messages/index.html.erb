@@ -1,0 +1,7 @@
+<% @messages.each do |message| %>
+  <div>
+    <p>【メールアドレス】 <%= message.user.email %></p>
+    <p>【内容】 <%= message.content %></p>
+  </div>
+  <hr>
+<% end %>

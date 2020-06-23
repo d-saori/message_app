@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MessageApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%# 部分テンプレート %>
+    <%= render 'shared/header' %>
+    <%# yield:ブロックの処理を呼び出す。「index.html.erb」内の「do〜end」部分(投稿メッセージ一覧)がここに表示される %>
+    <%= yield %>
+  </body>
+</html>

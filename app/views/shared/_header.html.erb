@@ -1,0 +1,13 @@
+<header>
+    <% if user_signed_in? %>
+      <%= link_to "投稿一覧", root_path %>
+      <%= link_to "新規投稿", new_message_path %>
+      <%= link_to 'アカウント編集', edit_user_registration_path %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <%= "【ログイン中のアドレス】#{current_user.email}" %>
+    <% else %>
+      <%= link_to "新規登録", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+  </header>
+  <hr>
