@@ -4,6 +4,10 @@ class MessagesController < ApplicationController
   # 全てのページをログインしないと入れなくなるようにするには「application_controller」に記入する
   # before_action :authenticate_user!, except: :index→indexページだけログインしてなくても表示できる
   before_action :authenticate_user!
+  # 自分のメッセージであるかどうかをチェックする
+  # 他の人のメッセージを編集、更新、削除できないようにする
+  # %i:シンボルの配列を作成
+  before_action :correct_user, only: %i[edit update destroy]
 
   def index
     # ***** (Message.allはよくない) *****
@@ -27,9 +31,7 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    # (params[:id]):どのメッセージであるか
-    @message = Message.find(params[:id])
-    # ↑で指定されたメッセージを削除
+    # @message = Message.find(params[:id]で指定されたメッセージを削除
     @message.destroy!
     # TOPページ(messages#index)へ移動
     redirect_to root_path
@@ -39,5 +41,18 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  # 自分のメッセージかどうか
+  def correct_user
+    # (params[:id]):どのメッセージであるか
+    # 探す部分(find)は共通なのでdestroyアクションじゃなくてこっちに書いてもいい
+    # @message = Message.find(params[:id])
+    # ↑のMessage.findだと自分のメッセージかどうかわからない
+    # @message = current_user.messages.find(params[:id])
+    # 更にfindだとメッセージが見つからなかった場合エラーが出てしまうのでfind_by(見つからない場合nilになる=自分が投稿したメッセージではないとわかる)に変更
+    @message = current_user.messages.find_by(id: params[:id])
+    # ↑でnilだった(他人のメッセージの場合)TOPページにredirectさせる
+    redirect_to root_path if @message.nil?
   end
 end
