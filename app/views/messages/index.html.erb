@@ -12,10 +12,10 @@
       <%# @liked_message_ids:indexアクションの変数 %>
       <% if @liked_message_ids.include?(message.id) %>
         <!-- いいね!済み -->
-        ★
+        <%= link_to '★', message_likes_path(message), method: :delete %>
       <% else %>
         <!-- いいね!していない -->
-        ☆
+        <%= link_to '☆', message_likes_path(message), method: :post %>
       <% end %>
     </p>
   </div>
